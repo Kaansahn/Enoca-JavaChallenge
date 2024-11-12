@@ -1,8 +1,7 @@
 package com.enoca.javachallenge.repository;
 
-import com.enoca.javachallenge.model.Customer;
-import com.enoca.javachallenge.model.Order;
+import com.enoca.javachallenge.model.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderItemRepository extends JpaRepository<Customer, Long> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 }
