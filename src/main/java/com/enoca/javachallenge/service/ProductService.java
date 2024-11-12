@@ -80,8 +80,15 @@ public class ProductService implements IProductService{
     }
 
     public void updateStock(Long productId, int quantity){
-        Product product = getProduct(productId);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if (product.getStock() < quantity) {
+            throw new RuntimeException("Not enough stock available for product: " + product.getName());
+        }
+
         product.setStock(product.getStock() - quantity);
+
         productRepository.save(product);
     }
 }

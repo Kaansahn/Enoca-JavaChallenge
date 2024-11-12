@@ -17,7 +17,7 @@ public class Order extends BaseEntity{
     private Customer customer;
     private double totalPrice;
     private LocalDateTime orderDate;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<OrderItem> orderItems;
 

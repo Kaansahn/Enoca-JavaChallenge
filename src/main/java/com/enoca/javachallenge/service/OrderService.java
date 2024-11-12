@@ -1,9 +1,8 @@
 package com.enoca.javachallenge.service;
 
-import com.enoca.javachallenge.model.Cart;
-import com.enoca.javachallenge.model.Order;
-import com.enoca.javachallenge.model.OrderItem;
+import com.enoca.javachallenge.model.*;
 import com.enoca.javachallenge.repository.OrderRepository;
+import com.enoca.javachallenge.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,15 +17,17 @@ public class OrderService implements IOrderService{
     private final OrderRepository orderRepository;
     private final CartService cartService;
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
-    public OrderService(OrderRepository orderRepository, CartService cartService, ProductService productService) {
+    public OrderService(OrderRepository orderRepository, CartService cartService, ProductService productService, ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @Transactional
-    public String placeOrder(Long customerId) {
+    public Order placeOrder(Long customerId) {
         Cart cart = cartService.getCart(customerId);
 
         if (cart == null || cart.getCartItems().isEmpty()) {
@@ -44,6 +45,7 @@ public class OrderService implements IOrderService{
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(cartItem.getProduct().getPrice());
             productService.updateStock(cartItem.getProduct().getId(), cartItem.getQuantity());
+
             return orderItem;
         }).collect(Collectors.toList());
 
@@ -52,7 +54,7 @@ public class OrderService implements IOrderService{
 
         cartService.emptyCart(cart.getId());
 
-        return "Order placed successfully";
+        return order;
     }
 
     @Override

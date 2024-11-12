@@ -8,7 +8,7 @@ import com.enoca.javachallenge.model.Product;
 import java.util.List;
 
 public interface IOrderService {
-    String placeOrder(Long customerId);
+    Order placeOrder(Long customerId);
     Order getOrderForCode(Long orderId);
     List<Order> getAllOrdersForCustomer(Long customerId);
 }
