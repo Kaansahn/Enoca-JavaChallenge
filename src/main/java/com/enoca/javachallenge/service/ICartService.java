@@ -5,7 +5,7 @@ import com.enoca.javachallenge.model.Product;
 
 public interface ICartService {
     Cart getCart(Long customerId);
-    Cart updateCart(Cart cart, Long cartId);
+    Cart updateCart(Cart cart);
     String emptyCart(Long cartId);
     String addProductToCart(Long productId, Long cartId, int quantity);
     String removeProductToCart(Long cartId, Long productId);

@@ -26,7 +26,7 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public Cart updateCart(Cart cart, Long cartId) {
+    public Cart updateCart(Cart cart) {
         updateTotalPrice(cart);
         return cartRepository.save(cart);
     }
