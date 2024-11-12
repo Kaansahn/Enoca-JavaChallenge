@@ -2,7 +2,9 @@ package com.enoca.javachallenge.service;
 
 import com.enoca.javachallenge.model.Customer;
 import com.enoca.javachallenge.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerService implements ICustomerService{
     private final CustomerRepository customerRepository;
 

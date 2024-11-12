@@ -2,6 +2,7 @@ package com.enoca.javachallenge.controller;
 
 import com.enoca.javachallenge.model.Customer;
 import com.enoca.javachallenge.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
