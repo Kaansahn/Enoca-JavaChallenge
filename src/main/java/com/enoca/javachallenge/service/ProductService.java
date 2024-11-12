@@ -73,4 +73,9 @@ public class ProductService implements IProductService{
 
         return "Product with product id: " + productId + " deleted successfully!";
     }
+
+    public boolean isProductInStock(Long productId, int quantity){
+        Product product = getProduct(productId);
+        return product.getStock() >= quantity;
+    }
 }
