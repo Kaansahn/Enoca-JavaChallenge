@@ -78,4 +78,10 @@ public class ProductService implements IProductService{
         Product product = getProduct(productId);
         return product.getStock() >= quantity;
     }
+
+    public void updateStock(Long productId, int quantity){
+        Product product = getProduct(productId);
+        product.setStock(product.getStock() - quantity);
+        productRepository.save(product);
+    }
 }
