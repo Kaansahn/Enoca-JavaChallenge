@@ -8,5 +8,5 @@ public interface ICartService {
     Cart updateCart(Cart cart);
     String emptyCart(Long cartId);
     String addProductToCart(Long productId, Long cartId, int quantity);
-    String removeProductToCart(Long cartId, Long productId);
+    String removeProductFromCart(Long cartId, Long productId);
 }

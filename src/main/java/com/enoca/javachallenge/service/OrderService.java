@@ -4,12 +4,14 @@ import com.enoca.javachallenge.model.Cart;
 import com.enoca.javachallenge.model.Order;
 import com.enoca.javachallenge.model.OrderItem;
 import com.enoca.javachallenge.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService implements IOrderService{
@@ -23,12 +25,12 @@ public class OrderService implements IOrderService{
         this.productService = productService;
     }
 
-    @Override
+    @Transactional
     public String placeOrder(Long customerId) {
         Cart cart = cartService.getCart(customerId);
 
-        if(cart.getCartItems().isEmpty()){
-            throw new RuntimeException("You are unable to place an order because cart is empty!");
+        if (cart == null || cart.getCartItems().isEmpty()) {
+            throw new RuntimeException("You are unable to place an order because the cart is empty or does not exist!");
         }
 
         Order order = new Order();
@@ -36,19 +38,19 @@ public class OrderService implements IOrderService{
         order.setTotalPrice(cart.getTotalPrice());
         order.setOrderDate(LocalDateTime.now());
 
-        List<OrderItem> orderItems = (List<OrderItem>) cart.getCartItems().stream().map(cartItem -> {
+        List<OrderItem> orderItems = cart.getCartItems().stream().map(cartItem -> {
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(cartItem.getProduct());
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(cartItem.getProduct().getPrice());
             productService.updateStock(cartItem.getProduct().getId(), cartItem.getQuantity());
             return orderItem;
-        }).toList();
+        }).collect(Collectors.toList());
 
         order.setOrderItems(orderItems);
-        cartService.emptyCart(cart.getId());
-
         orderRepository.save(order);
+
+        cartService.emptyCart(cart.getId());
 
         return "Order placed successfully";
     }

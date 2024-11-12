@@ -1,5 +1,7 @@
 package com.enoca.javachallenge.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -8,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 public class OrderItem extends BaseEntity{
    @ManyToOne
    @JoinColumn(name = "order_id")
+   @JsonBackReference
    private Order order;
 
    @ManyToOne

@@ -33,8 +33,8 @@ public class CartController {
         return cartService.addProductToCart(productId, cartId, quantity);
     }
 
-    @DeleteMapping("{cartId}/removeproduct/{productId}")
-    public String removeProductToCart(@PathVariable Long cartId, @PathVariable Long productId) {
-        return cartService.removeProductToCart(cartId, productId);
+    @DeleteMapping("/{cartId}/removeproduct/{productId}")
+    public String removeProductFromCart(@PathVariable Long cartId, @PathVariable Long productId) {
+        return cartService.removeProductFromCart(cartId, productId);
     }
 }

@@ -1,5 +1,7 @@
 package com.enoca.javachallenge.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -7,15 +9,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "`order`")
 public class Order extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
-
     private double totalPrice;
     private LocalDateTime orderDate;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<OrderItem> orderItems;
 
     public Customer getCustomer() {
