@@ -39,12 +39,6 @@ public class CartService implements ICartService{
 
     @Override
     public String emptyCart(Long cartId) {
-//        Cart cart = getCart(cartId);
-//        cart.getCartItems().clear();
-//        updateTotalPrice(cart);
-//        cartRepository.save(cart);
-//        return "Cart is empty";
-
         Cart cart = cartRepository.findById(cartId).
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found"));
 

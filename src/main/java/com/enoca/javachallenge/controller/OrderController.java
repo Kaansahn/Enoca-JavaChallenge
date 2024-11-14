@@ -1,6 +1,7 @@
 package com.enoca.javachallenge.controller;
 
 import com.enoca.javachallenge.model.Order;
+import com.enoca.javachallenge.service.IOrderService;
 import com.enoca.javachallenge.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
-    private final OrderService orderService;
+    private final IOrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(IOrderService orderService) {
         this.orderService = orderService;
     }
 

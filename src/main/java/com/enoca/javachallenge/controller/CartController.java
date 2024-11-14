@@ -1,15 +1,15 @@
 package com.enoca.javachallenge.controller;
 
 import com.enoca.javachallenge.model.Cart;
-import com.enoca.javachallenge.service.CartService;
+import com.enoca.javachallenge.service.ICartService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/carts")
 public class CartController {
-    private final CartService cartService;
+    private final ICartService cartService;
 
-    public CartController(CartService cartService) {
+    public CartController(ICartService cartService) {
         this.cartService = cartService;
     }
 

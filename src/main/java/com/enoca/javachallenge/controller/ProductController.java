@@ -1,6 +1,7 @@
 package com.enoca.javachallenge.controller;
 
 import com.enoca.javachallenge.model.Product;
+import com.enoca.javachallenge.service.IProductService;
 import com.enoca.javachallenge.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    private final ProductService productService;
+    private final IProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(IProductService productService) {
         this.productService = productService;
     }
 
